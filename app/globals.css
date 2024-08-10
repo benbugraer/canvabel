@@ -2,32 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+/* Import only the scales you need */
+@import "@radix-ui/colors/gray.css";
+@import "@radix-ui/colors/blue.css";
+@import "@radix-ui/colors/green.css";
+@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/gray-dark.css";
+@import "@radix-ui/colors/blue-dark.css";
+@import "@radix-ui/colors/green-dark.css";
+@import "@radix-ui/colors/red-dark.css";
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --bg: var(--gray-1);
+    --boxBg: var(--gray-4);
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .main-header {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: var(--bg);
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+@media (hover: hover) {
+  .animated-list:hover li {
+    opacity: 0.5;
+  }
+
+  .animated-list:hover li:hover {
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation-delay: calc(var(--index) * 130ms);
+}
+
+.overflow-x-scroll.snap-x::-webkit-scrollbar {
+  /* hide scrollbars with webkit scrollbar */
+  display: none;
 }
