@@ -4,6 +4,7 @@ import "./globals.css";
 import clsx from "clsx";
 import Navigation from "@/components/Navigation";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -26,10 +27,12 @@ export default function RootLayout({
             raleway.className
           )}
         >
-          <Navigation />
-          <div className="mx-auto max-w-[87.5rem] px-6 pb-24 pt-16 md:px-6 md:pb-44 md:pt-20">
-            {children}
-          </div>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Navigation />
+            <div className="mx-auto max-w-[87.5rem] px-6 pb-24 pt-16 md:px-6 md:pb-44 md:pt-20">
+              {children}
+            </div>
+          </ThemeProvider>
         </body>
       </ClerkProvider>
     </html>

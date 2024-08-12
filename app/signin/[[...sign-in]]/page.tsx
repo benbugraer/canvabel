@@ -31,15 +31,15 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border bg-background px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 md:shadow-xl h-full">
+    <div className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-secondary bg-primary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-sm h-full">
       <h2 className="text-center text-3xl font-bold uppercase mb-8 sm:mb-10 md:mb-12">
         Sign in to your account
       </h2>
-      <div className="w-full max-w-md space-y-6 rounded-lg bg-primary p-6 sm:p-8 md:p-10 shadow-md">
+      <div className="w-full max-w-md space-y-6 rounded-lg bg-tertiary p-6 sm:p-8 md:p-10 shadow-md">
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {["email", "password"].map((field) => (
             <div key={field}>
-              <h1 className="text-sm mb-1 ml-1 text-tertiary">
+              <h1 className="text-sm mb-1 ml-1 text-primary">
                 {field.charAt(0).toUpperCase() + field.slice(1)}
               </h1>
               <Input
@@ -56,7 +56,7 @@ export default function SignInPage() {
             Sign in
           </Button>
         </form>
-        <p className="mt-4 sm:mt-6 text-center text-sm text-gray-600">
+        <p className="mt-4 sm:mt-6 text-center text-sm text-secondary">
           Don&apos;t have an account?{" "}
           <a
             href="/signup"

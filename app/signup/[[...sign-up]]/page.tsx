@@ -54,18 +54,18 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border bg-background px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 md:shadow-xl h-full">
+    <div className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-secondary bg-primary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-sm h-full">
       <div className="w-full max-w-md space-y-8">
         <h2 className="mt-6 text-center text-3xl font-bold uppercase">
           Create an account
         </h2>
-        <div className="bg-primary p-8 rounded-lg shadow-md">
+        <div className="bg-tertiary p-8 rounded-lg shadow-md">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-primary"
                 >
                   Email
                 </label>
@@ -82,7 +82,7 @@ export default function SignUpPage() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-primary"
                 >
                   Password
                 </label>
@@ -99,7 +99,7 @@ export default function SignUpPage() {
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-primary"
                 >
                   Confirm Password
                 </label>
@@ -119,7 +119,7 @@ export default function SignUpPage() {
               Create account
             </Button>
           </form>
-          <p className="mt-4 text-center text-sm text-gray-600">
+          <p className="mt-4 text-center text-sm text-secondary">
             Already have an account?{" "}
             <a
               href="/signin"
