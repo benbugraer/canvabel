@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CSSProperties } from "react";
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -54,12 +55,21 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-secondary bg-primary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-sm h-full">
+    <div
+      className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-secondary bg-primary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-sm h-full animate-in"
+      style={{ "--index": 1 } as CSSProperties}
+    >
       <div className="w-full max-w-md space-y-8">
-        <h2 className="mt-6 text-center text-3xl font-bold uppercase">
+        <h2
+          className="mt-6 text-center text-3xl font-bold uppercase animate-in"
+          style={{ "--index": 2 } as CSSProperties}
+        >
           Create an account
         </h2>
-        <div className="bg-tertiary p-8 rounded-lg shadow-md">
+        <div
+          className="bg-tertiary p-8 rounded-lg shadow-md animate-in"
+          style={{ "--index": 3 } as CSSProperties}
+        >
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
               <div>

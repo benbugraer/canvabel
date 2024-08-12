@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import { useSignIn } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,11 +31,20 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-secondary bg-primary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-sm h-full">
-      <h2 className="text-center text-3xl font-bold uppercase mb-8 sm:mb-10 md:mb-12">
+    <div
+      className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-secondary bg-primary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-sm h-full animate-in"
+      style={{ "--index": 1 } as CSSProperties}
+    >
+      <h2
+        className="text-center text-3xl font-bold uppercase mb-8 sm:mb-10 md:mb-12 animate-in"
+        style={{ "--index": 2 } as CSSProperties}
+      >
         Sign in to your account
       </h2>
-      <div className="w-full max-w-md space-y-6 rounded-lg bg-tertiary p-6 sm:p-8 md:p-10 shadow-md">
+      <div
+        className="w-full max-w-md space-y-6 rounded-lg bg-tertiary p-6 sm:p-8 md:p-10 shadow-md animate-in"
+        style={{ "--index": 3 } as CSSProperties}
+      >
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {["email", "password"].map((field) => (
             <div key={field}>
