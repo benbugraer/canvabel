@@ -45,6 +45,17 @@ const config = {
         soft: "0 15px 30px 0 rgba(0, 0, 0, 0.04)",
       },
       keyframes: {
+        "shine-pulse": {
+          "0%": {
+            "background-position": "0% 0%",
+          },
+          "50%": {
+            "background-position": "100% 100%",
+          },
+          to: {
+            "background-position": "0% 0%",
+          },
+        },
         in: {
           "0%": { transform: "translateY(18px)", opacity: "0" },
           "100%": { transform: "translateY(0)", opacity: "1" },

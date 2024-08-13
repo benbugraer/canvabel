@@ -24,17 +24,17 @@ export default function SignUpPage() {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
-    setError(""); // Kullanıcı her veri girişi yaptığında hatayı temizle
+    setError("");
   };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const { email, password, confirmPassword, acceptTerms } = formData;
 
-    if (!acceptTerms) {
-      alert("Please accept the terms and privacy policy");
-      return;
-    }
+    // if (!acceptTerms) {
+    //   alert("Please accept the terms and privacy policy");
+    //   return;
+    // }
 
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
