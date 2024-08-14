@@ -12,6 +12,7 @@ import { LogosTypescriptIcon } from "@/public/icons/TypeIcon";
 import { SimpleIconsClerk } from "@/public/icons/ClerkIcon";
 import { SimpleIconsShadcnui } from "@/public/icons/ShadcnIcon";
 import { LogosReact } from "@/public/icons/ReactIcons";
+import { Cover } from "@/components/ui/cover";
 
 export default function Home() {
   const techStack = [
@@ -43,14 +44,14 @@ export default function Home() {
               className="text-4xl font-bold tracking-tight text-primary sm:text-6xl animate-in"
               style={{ "--index": 1 } as CSSProperties}
             >
-              Welcome CanvasBel
+              Welcome <Cover className="animate-in">CanvasBel</Cover>
             </h1>
             <p
               className="mt-4 text-xl text-tertiary animate-in"
               style={{ "--index": 2 } as CSSProperties}
             >
-              A platform for artists to showcase their work and connect with
-              their audience.
+              A platform for creating and sharing beautiful designs and art with
+              the world. Get started today!
             </p>
           </div>
           <div className="gap-5 flex mt-12">
@@ -73,7 +74,7 @@ export default function Home() {
           >
             {techStack.map(({ url, icon: Icon }) => (
               <DockWithPreview key={url} url={url}>
-                <Icon className="w-4 h-4" />
+                <Icon className="w-5 h-5" />
               </DockWithPreview>
             ))}
           </div>
@@ -85,16 +86,7 @@ export default function Home() {
                 style={{ "--index": 6 } as CSSProperties}
               >
                 <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
-                  <div className="flex items-center space-x-6 lg:space-x-8">
-                    <ShineBorder
-                      className="relative flex h-[600px]  w-11/12 flex-col items-center justify-center overflow-hidden rounded-lg border md:shadow-xl"
-                      color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
-                    >
-                      <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
-                        Shine Border
-                      </span>
-                    </ShineBorder>
-                  </div>
+                  <div className="flex items-center space-x-6 lg:space-x-8"></div>
                 </div>
               </div>
             </div>
