@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <ClerkProvider appearance={{}}>
         <body
           className={clsx(
             "antialiased bg-contrast dark:bg-primary text-primary",
@@ -29,9 +29,7 @@ export default function RootLayout({
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navigation />
-            <div className="mx-auto max-w-[87.5rem] px-6 pb-24 pt-16 md:px-6 md:pb-44 md:pt-20">
-              {children}
-            </div>
+            <div className="">{children}</div>
           </ThemeProvider>
         </body>
       </ClerkProvider>

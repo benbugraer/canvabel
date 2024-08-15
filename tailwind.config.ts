@@ -45,6 +45,14 @@ const config = {
         soft: "0 15px 30px 0 rgba(0, 0, 0, 0.04)",
       },
       keyframes: {
+        shimmer: {
+          "0%, 90%, 100%": {
+            "background-position": "calc(-100% - var(--shimmer-width)) 0",
+          },
+          "30%, 60%": {
+            "background-position": "calc(100% + var(--shimmer-width)) 0",
+          },
+        },
         "shine-pulse": {
           "0%": {
             "background-position": "0% 0%",

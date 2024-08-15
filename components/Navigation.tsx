@@ -6,9 +6,11 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 export default function Navigation() {
   return (
     <header
-      className="bg-tertiary lg:rounded-full  lg:w-5/12  mx-auto lg:my-6 top-0 sticky z-40  backdrop-blur-xl animate-in-reverse"
+      className="bg-tertiary lg:rounded-lg  lg:w-5/12  mx-auto lg:my-6 top-0 sticky z-40  backdrop-blur-xl animate-in-reverse"
       style={{ "--index": 0 } as CSSProperties}
     >
+      <hr className="m-0 h-px w-full border-none bg-gradient-to-r from-neutral-200/0 via-neutral-200/30 to-neutral-200/0 shadow-lg"></hr>
+
       <div className="container flex h-16 items-center">
         <Link
           href="/"
