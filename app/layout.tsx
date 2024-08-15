@@ -3,8 +3,10 @@ import { Raleway } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
 import Navigation from "@/components/Navigation";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import ForgotPassword from "./forgotpassword/page";
+// import { UserButton, SignedOut, SignInButton } from "@clerk/nextjs";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -27,6 +29,12 @@ export default function RootLayout({
             raleway.className
           )}
         >
+          {/* <SignedOut>
+            <SignInButton />
+          </SignedOut> */}
+          {/* <SignedIn>
+            <UserButton />
+          </SignedIn> */}
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navigation />
             <div className="">{children}</div>

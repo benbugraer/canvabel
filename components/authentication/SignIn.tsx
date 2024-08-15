@@ -76,7 +76,7 @@ export default function SignInPage() {
           </Link>
         </p>
         <Link
-          href="/"
+          href="/forgotpassword"
           className="text-sm text-tertiary text-center flex justify-center items-center hover:text-black transition ease-linear dark:hover:text-white"
         >
           Forgot password?
