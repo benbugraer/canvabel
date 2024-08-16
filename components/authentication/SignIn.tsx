@@ -5,10 +5,14 @@ import { useSignIn } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
-export default function SignInPage() {
+export default function SignIn() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const { isLoaded, signIn, setActive } = useSignIn();
+  const router = useRouter();
+  const { toast } = useToast();
 
   if (!isLoaded) return null;
 
@@ -24,10 +28,23 @@ export default function SignInPage() {
           identifier: credentials.email,
           password: credentials.password,
         });
-        if (createdSessionId) setActive({ session: createdSessionId });
+        if (createdSessionId) {
+          setActive({ session: createdSessionId });
+          toast({
+            title: "Login Successful",
+            description: "You have successfully logged in.",
+            variant: "default",
+          });
+          router.push("/"); // Ana sayfaya yönlendirme
+        }
       }
     } catch (err: any) {
       console.error("Error:", err.errors[0].message);
+      toast({
+        title: "Login Failed",
+        description: err.errors[0].message || "An error occurred during login.",
+        variant: "destructive",
+      });
     }
   }
 
@@ -62,7 +79,7 @@ export default function SignInPage() {
               />
             </div>
           ))}
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" onClick={handleSubmit}>
             Sign in
           </Button>
         </form>

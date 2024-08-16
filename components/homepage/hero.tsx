@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { CSSProperties } from "react";
+import { useUser } from "@clerk/nextjs"; // Clerk hook
 import AnimatedShinyText from "../magicui/animated-shiny-text";
 import { ArrowRightIcon } from "lucide-react";
 import ShineBorder from "../magicui/shine-border";
@@ -8,6 +11,8 @@ import { cn } from "@/lib/utils";
 import { Cover } from "../ui/cover";
 
 export default function HeroSection() {
+  const { user } = useUser(); // Kullanıcı bilgisini al
+
   return (
     <div className="flex flex-col items-center justify-center mt-[2rem] mb-[3rem] p-3">
       <div className="my-5">
@@ -40,13 +45,21 @@ export default function HeroSection() {
         Create your own canvas and share it with the world. You can also explore
         other people&apos;s canvases and get inspired.
       </p>
+
       <div
         className="flex gap-7 mt-8 animate-in"
         style={{ "--index": 4 } as CSSProperties}
       >
-        <Button href="/signup">Sign Up</Button>
-        <Button href="/signin">Sign In</Button>
+        {user ? (
+          <Button href="/dashboard">Dashboard</Button>
+        ) : (
+          <>
+            <Button href="/signup">Sign Up</Button>
+            <Button href="/signin">Sign In</Button>
+          </>
+        )}
       </div>
+
       <div
         className="relative animate-in flex max-w-6xl justify-center overflow-hidden mt-14"
         style={{ "--index": 5 } as CSSProperties}

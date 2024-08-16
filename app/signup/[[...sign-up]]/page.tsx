@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 export default function SignUpPage() {
   return (
-    <div>
+    <div className="flex my-24">
       <SignUp />
     </div>
   );

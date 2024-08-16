@@ -2,8 +2,11 @@
 import Link from "next/link";
 import { CSSProperties } from "react";
 import { ThemeSwitcher } from "../ThemeSwitcher";
+import { useUser, UserButton } from "@clerk/nextjs";
 
 export default function Navigation() {
+  const { isSignedIn } = useUser();
+
   return (
     <header
       className="bg-tertiary lg:rounded-lg  lg:w-5/12  mx-auto lg:my-6 top-0 sticky z-40  backdrop-blur-xl animate-in-reverse"
@@ -21,9 +24,13 @@ export default function Navigation() {
           </span>
         </Link>
         <nav className="flex  items-center gap-5 justify-end ml-auto">
-          <button className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-8 py-2 bg-[#0070f3] rounded-lg text-white font-light text-sm transition duration-200 ease-linear">
-            <Link href="/signup">Sign Up / Sign In </Link>
-          </button>
+          {isSignedIn ? (
+            <UserButton />
+          ) : (
+            <button className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-8 py-2 bg-[#0070f3] rounded-lg text-white font-light text-sm transition duration-200 ease-linear">
+              <Link href="/signup">Sign Up / Sign In</Link>
+            </button>
+          )}
           <ThemeSwitcher />
         </nav>
       </div>
