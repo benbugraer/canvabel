@@ -4,7 +4,6 @@ import "./globals.css";
 import clsx from "clsx";
 import { ClerkProvider, SignedIn } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import Navigation from "@/components/container/Navigation";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -20,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <ClerkProvider appearance={{}}>
+      <ClerkProvider>
         <body
           className={clsx(
             "antialiased bg-contrast dark:bg-primary text-primary",
@@ -28,7 +27,7 @@ export default function RootLayout({
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="">{children}</div>
+            <div>{children}</div>
           </ThemeProvider>
         </body>
       </ClerkProvider>
