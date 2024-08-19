@@ -210,15 +210,17 @@ export default function SignUp() {
               </form>
             ) : (
               <div className="space-y-6">
-                <p className="text-sm text-secondary">
+                <p className="text-sm text-secondary mx-auto flex items-center justify-center">
                   Please enter the verification code sent to your email.
                 </p>
                 <InputOTP value={otp} onChange={setOTP} maxLength={6}>
-                  <InputOTPGroup>
-                    {Array.from({ length: 6 }).map((_, index) => (
-                      <InputOTPSlot key={index} index={index} />
-                    ))}
-                  </InputOTPGroup>
+                  <div className="flex items-center justify-center mx-auto">
+                    <InputOTPGroup>
+                      {Array.from({ length: 6 }).map((_, index) => (
+                        <InputOTPSlot key={index} index={index} />
+                      ))}
+                    </InputOTPGroup>
+                  </div>
                 </InputOTP>
                 <Button onClick={handleVerifyOTP} className="w-full">
                   Verify
