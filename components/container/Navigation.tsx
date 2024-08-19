@@ -9,7 +9,7 @@ export default function Navigation() {
 
   return (
     <header
-      className="bg-tertiary lg:rounded-lg  lg:w-5/12  mx-auto lg:my-6 top-0 sticky z-40  backdrop-blur-xl animate-in-reverse"
+      className="bg-tertiary lg:rounded-lg lg:w-5/12  mx-auto lg:my-6 top-0 sticky z-40  backdrop-blur-xl animate-in-reverse"
       style={{ "--index": 0 } as CSSProperties}
     >
       <hr className="m-0 h-px w-full border-none bg-gradient-to-r from-neutral-200/0 via-neutral-200/30 to-neutral-200/0 shadow-lg"></hr>
@@ -23,7 +23,7 @@ export default function Navigation() {
             Canvas<span className="font-black">BEL</span>
           </span>
         </Link>
-        <nav className="flex  items-center gap-5 justify-end ml-auto">
+        <nav className="flex items-center gap-5 justify-end ml-auto">
           {isSignedIn ? (
             <UserButton />
           ) : (
