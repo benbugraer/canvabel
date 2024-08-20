@@ -1,5 +1,11 @@
 import { ReactNode } from "react";
 import Navigation from "./_components/Navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "CanvasBel | Dashboard",
+  description: "Welcome to CanvasBel",
+};
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
