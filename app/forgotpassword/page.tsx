@@ -11,17 +11,16 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { AlertCircle } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { toast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -29,8 +28,6 @@ export default function ForgotPasswordPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
   const [step, setStep] = useState<"email" | "otp" | "newPassword">("email");
   const { signIn, isLoaded } = useSignIn();
   const router = useRouter();
@@ -40,21 +37,27 @@ export default function ForgotPasswordPage() {
     if (!isLoaded) return;
 
     setIsLoading(true);
-    setErrorMessage("");
-    setSuccessMessage("");
 
     try {
       await signIn.create({
         strategy: "reset_password_email_code",
         identifier: email,
       });
-      setSuccessMessage(
-        "Şifre sıfırlama talimatları e-posta adresinize gönderildi."
-      );
+      toast({
+        title: "Email Sent",
+        description:
+          "Password reset instructions have been sent to your email.",
+        duration: 5000, // Toast will disappear after 5 seconds
+      });
       setStep("otp");
     } catch (error) {
-      setErrorMessage("Bir hata oluştu. Lütfen tekrar deneyin.");
-      console.error("Şifre sıfırlama hatası:", error);
+      toast({
+        title: "Error",
+        description: "An error occurred. Please try again.",
+        variant: "destructive",
+        duration: 5000,
+      });
+      console.error("Password reset error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +67,6 @@ export default function ForgotPasswordPage() {
     if (!isLoaded) return;
 
     setIsLoading(true);
-    setErrorMessage("");
 
     try {
       const result = await signIn.attemptFirstFactor({
@@ -78,8 +80,13 @@ export default function ForgotPasswordPage() {
         throw new Error("Unexpected verification result");
       }
     } catch (error) {
-      setErrorMessage("OTP doğrulama hatası. Lütfen tekrar deneyin.");
-      console.error("OTP doğrulama hatası:", error);
+      toast({
+        title: "OTP Verification Error",
+        description: "OTP verification error. Please try again.",
+        variant: "destructive",
+        duration: 5000,
+      });
+      console.error("OTP verification error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -89,12 +96,16 @@ export default function ForgotPasswordPage() {
     if (!isLoaded) return;
 
     if (newPassword !== confirmPassword) {
-      setErrorMessage("Şifreler eşleşmiyor.");
+      toast({
+        title: "Error",
+        description: "Passwords do not match.",
+        variant: "destructive",
+        duration: 5000,
+      });
       return;
     }
 
     setIsLoading(true);
-    setErrorMessage("");
 
     try {
       const result = await signIn.resetPassword({
@@ -102,11 +113,11 @@ export default function ForgotPasswordPage() {
       });
 
       if (result.status === "complete") {
-        setSuccessMessage("Şifreniz başarıyla değiştirildi.");
         toast({
-          title: "Şifre Değiştirildi",
+          title: "Password Changed",
           description:
-            "Şifreniz başarıyla güncellendi. Anasayfaya yönlendiriliyorsunuz.",
+            "Your password has been successfully updated. Redirecting to the homepage.",
+          duration: 5000,
         });
         setTimeout(() => {
           router.push("/");
@@ -115,8 +126,13 @@ export default function ForgotPasswordPage() {
         throw new Error("Unexpected reset password result");
       }
     } catch (error) {
-      setErrorMessage("Şifre sıfırlama hatası. Lütfen tekrar deneyin.");
-      console.error("Şifre sıfırlama hatası:", error);
+      toast({
+        title: "Password Reset Error",
+        description: "Password reset error. Please try again.",
+        variant: "destructive",
+        duration: 5000,
+      });
+      console.error("Password reset error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -124,7 +140,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <div
-      className="flex items-center justify-center min-h-screen animate-in"
+      className="flex items-center justify-center min-h-screen animate-in overflow-hidden"
       style={{ "--index": 0 } as CSSProperties}
     >
       <Card className="w-[350px]">
@@ -135,7 +151,10 @@ export default function ForgotPasswordPage() {
           >
             Forgot Password
           </CardTitle>
-          <CardDescription>
+          <CardDescription
+            className="animate-in"
+            style={{ "--index": 2 } as CSSProperties}
+          >
             {step === "email" &&
               "Enter your email address to receive password reset instructions."}
             {step === "otp" &&
@@ -148,11 +167,19 @@ export default function ForgotPasswordPage() {
             <form onSubmit={handleSubmit}>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="email">E-posta</Label>
+                  <Label
+                    htmlFor="email"
+                    className="animate-in"
+                    style={{ "--index": 3 } as CSSProperties}
+                  >
+                    Email
+                  </Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="ornek@email.com"
+                    placeholder="example@email.com"
+                    className="animate-in"
+                    style={{ "--index": 4 } as CSSProperties}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -160,22 +187,29 @@ export default function ForgotPasswordPage() {
                 </div>
               </div>
               <Button
-                className="w-full mt-4"
+                className="w-full mt-4 animate-in"
+                style={{ "--index": 5 } as CSSProperties}
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? "Gönderiliyor..." : "Şifre Sıfırlama Gönder"}
+                {isLoading ? "Sending..." : "Send Password Reset"}
               </Button>
             </form>
           )}
 
           {step === "otp" && (
             <div className="space-y-6">
-              <p className="text-sm text-secondary mx-auto flex items-center justify-center">
+              <p
+                className="text-sm text-secondary mx-auto flex items-center justify-center animate-in"
+                style={{ "--index": 0 } as CSSProperties}
+              >
                 Please enter the verification code sent to your email.
               </p>
               <InputOTP value={otp} onChange={setOTP} maxLength={6}>
-                <div className="flex items-center justify-center mx-auto">
+                <div
+                  className="flex items-center justify-center mx-auto animate-in"
+                  style={{ "--index": 1 } as CSSProperties}
+                >
                   <InputOTPGroup>
                     {Array.from({ length: 6 }).map((_, index) => (
                       <InputOTPSlot key={index} index={index} />
@@ -185,31 +219,51 @@ export default function ForgotPasswordPage() {
               </InputOTP>
               <Button
                 onClick={handleVerifyOTP}
-                className="w-full"
+                className="w-full animate-in"
+                style={{ "--index": 2 } as CSSProperties}
                 disabled={isLoading}
               >
-                {isLoading ? "Doğrulanıyor..." : "Doğrula"}
+                {isLoading ? "Verifying..." : "Verify"}
               </Button>
             </div>
           )}
 
           {step === "newPassword" && (
             <div className="space-y-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="newPassword">Yeni Şifre</Label>
+              <div
+                className="flex flex-col space-y-1.5 animate-in"
+                style={{ "--index": 0 } as CSSProperties}
+              >
+                <Label
+                  htmlFor="newPassword"
+                  className="animate-in"
+                  style={{ "--index": 1 } as CSSProperties}
+                >
+                  New Password
+                </Label>
                 <Input
                   id="newPassword"
                   type="password"
+                  className="aniamte-in"
+                  style={{ "--index": 2 } as CSSProperties}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
                 />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="confirmPassword">Şifreyi Onayla</Label>
+                <Label
+                  htmlFor="confirmPassword"
+                  className="animate-in"
+                  style={{ "--index": 3 } as CSSProperties}
+                >
+                  Confirm Password
+                </Label>
                 <Input
                   id="confirmPassword"
                   type="password"
+                  className="animate-in"
+                  style={{ "--index": 4 } as CSSProperties}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
@@ -217,26 +271,17 @@ export default function ForgotPasswordPage() {
               </div>
               <Button
                 onClick={handleResetPassword}
-                className="w-full"
+                style={{ "--index": 5 } as CSSProperties}
+                className="w-full animate-in"
                 disabled={isLoading}
               >
-                {isLoading ? "Şifre Değiştiriliyor..." : "Şifreyi Değiştir"}
+                {isLoading ? "Changing Password..." : "Change Password"}
               </Button>
             </div>
           )}
         </CardContent>
-        {errorMessage && (
-          <Alert variant="destructive" className="mt-4">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>{errorMessage}</AlertDescription>
-          </Alert>
-        )}
-        {successMessage && (
-          <Alert className="mt-4">
-            <AlertDescription>{successMessage}</AlertDescription>
-          </Alert>
-        )}
       </Card>
+      <Toaster />
     </div>
   );
 }
