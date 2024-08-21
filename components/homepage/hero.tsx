@@ -9,9 +9,10 @@ import ShineBorder from "../magicui/shine-border";
 import Button from "../Button";
 import { cn } from "@/lib/utils";
 import { Cover } from "../ui/cover";
+import Image from "next/image";
 
 export default function HeroSection() {
-  const { user } = useUser(); // Kullanıcı bilgisini al
+  const { user } = useUser();
 
   return (
     <div className="flex flex-col items-center justify-center mt-[2rem] mb-[3rem] p-3">
@@ -68,9 +69,13 @@ export default function HeroSection() {
           className="relative flex h-[500px] mb-10 lg:w-[900px] flex-col items-center justify-center overflow-hidden rounded-lg border md:shadow-sm"
           color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
         >
-          <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
-            Shine Border
-          </span>
+          <h1>Hellow</h1>
+          {/* <Image
+            src="/hero/dashboardimg.png"
+            width={900}
+            height={500}
+            alt="hero img"
+          /> */}
         </ShineBorder>
       </div>
     </div>

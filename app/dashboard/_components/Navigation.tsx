@@ -2,6 +2,7 @@ import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { CSSProperties } from "react";
 import { GoHomeFill } from "react-icons/go";
+// import ImageUpload from "./AddImage";
 
 export default function Navigation() {
   return (
@@ -39,6 +40,7 @@ export default function Navigation() {
             >
               Page one
             </Link>
+            {/* <ImageUpload /> */}
           </nav>
         </div>
       </div>
