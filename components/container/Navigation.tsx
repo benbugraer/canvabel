@@ -27,9 +27,11 @@ export default function Navigation() {
           {isSignedIn ? (
             <UserButton />
           ) : (
-            <button className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-8 py-2 bg-[#0070f3] rounded-lg text-white font-light text-sm transition duration-200 ease-linear">
-              <Link href="/signup">Sign Up / Sign In</Link>
-            </button>
+            <Link href="/signup">
+              <button className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-8 py-2 bg-[#0070f3] rounded-lg text-white font-light text-sm transition duration-200 ease-linear">
+                <p>Sign Up / Sign In</p>
+              </button>
+            </Link>
           )}
           <ThemeSwitcher />
         </nav>

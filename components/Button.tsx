@@ -1,10 +1,8 @@
-// hover:bg-neutral-800 hover:ring-2 hover:ring-neutral-800 hover:ring-offset-2
-
 "use client";
 
 import Link from "next/link";
+import { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { CSSProperties, ReactNode } from "react";
 
 interface ButtonProps {
   children: ReactNode;
@@ -13,17 +11,15 @@ interface ButtonProps {
 
 export default function Button({ children, href }: ButtonProps) {
   return (
-    <motion.button
-      className="rounded-md  relative px-10 flex items-center justify-center text-center duration-500 ease-linear transition-colors bg-tertiary hover:transition-colors hover:duration-500 hover:ease-linear  hover:ring-2 hover:ring-neutral-800 hover:ring-offset-2"
-      whileHover={{ scale: 1.1 }}
-      transition={{ type: "tween", stiffness: 700, damping: 15 }}
-    >
-      <Link
-        href={href}
-        className="flex items-center py-2 px-2 gap-3 capitalize font-normal ease-linear"
+    <Link href={href}>
+      <motion.button
+        className="shadow-[0_4px_14px_0_rgb(0,0,0,10%)] hover:shadow-[0_6px_20px_rgba(93,93,93,23%)] px-12 py-1.5 bg-[#333] dark:bg-[#fff] text-[#fff]  dark:text-[#333] rounded-md font-light transition duration-100 ease-linear"
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 500, damping: 17 }}
       >
         {children}
-      </Link>
-    </motion.button>
+      </motion.button>
+    </Link>
   );
 }

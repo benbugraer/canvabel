@@ -6,11 +6,9 @@ import { useUser } from "@clerk/nextjs"; // Clerk hook
 import AnimatedShinyText from "../magicui/animated-shiny-text";
 import { ArrowRightIcon } from "lucide-react";
 import ShineBorder from "../magicui/shine-border";
-import Button from "../Button";
 import { cn } from "@/lib/utils";
 import { Cover } from "../ui/cover";
-import Image from "next/image";
-
+import Button from "@/components/Button";
 export default function HeroSection() {
   const { user } = useUser();
 
@@ -52,11 +50,17 @@ export default function HeroSection() {
         style={{ "--index": 4 } as CSSProperties}
       >
         {user ? (
-          <Button href="/dashboard">Dashboard</Button>
+          // <Button href="/dashboard">Dashboard</Button>
+          <Link href="/dashboard">
+            <button className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-12 py-3 bg-[#0070f3] rounded-lg text-white font-semibold text-sm transition duration-200 ease-linear flex items-center justify-center gap-1">
+              <p>Dashboard</p>
+              <ArrowRightIcon className="ml-1 size-4 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+            </button>
+          </Link>
         ) : (
           <>
-            <Button href="/signup">Sign Up</Button>
             <Button href="/signin">Sign In</Button>
+            <Button href="/signup">Sign Up</Button>
           </>
         )}
       </div>
@@ -70,12 +74,6 @@ export default function HeroSection() {
           color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
         >
           <h1>Hellow</h1>
-          {/* <Image
-            src="/hero/dashboardimg.png"
-            width={900}
-            height={500}
-            alt="hero img"
-          /> */}
         </ShineBorder>
       </div>
     </div>
