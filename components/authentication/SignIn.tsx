@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import AuthButton from "./AuthButtons";
 
 export default function SignIn() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -80,10 +79,9 @@ export default function SignIn() {
               />
             </div>
           ))}
-          {/* <Button type="submit" className="w-full" onClick={handleSubmit}>
+          <Button type="submit" className="w-full" onClick={handleSubmit}>
             Sign in
-          </Button> */}
-          <AuthButton text="Sign In" onClick={() => handleSubmit} />
+          </Button>
         </form>
         <p className="mt-4 sm:mt-6 text-center text-sm text-secondary">
           Don&apos;t have an account?{" "}

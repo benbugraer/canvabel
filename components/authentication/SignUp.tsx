@@ -15,7 +15,6 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
-import AuthButton from "./AuthButtons";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -205,10 +204,9 @@ export default function SignUp() {
                   </div>
                 </div>
                 {error && <p className="text-red-500 text-sm">{error}</p>}
-                {/* <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full">
                   Create account
-                </Button> */}
-                <AuthButton text="Sign Up" />
+                </Button>
               </form>
             ) : (
               <div className="space-y-6">

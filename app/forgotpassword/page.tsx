@@ -1,6 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
-import ForgotPassword from "@/components/authentication/ForgotPassword";
+import ForgotPassword from "@/app/forgotpassword/components/ForgotPassword";
 
 export const metadata: Metadata = {
   title: "CanvasBel | Forgot Password",
