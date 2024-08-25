@@ -10,12 +10,16 @@ import {
 } from "@/components/ui/sheet";
 import Link from "next/link";
 import { ReactNode } from "react";
-import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { FaImage } from "react-icons/fa6";
 import { PiTextTFill } from "react-icons/pi";
 import { MdSettings } from "react-icons/md";
-import { UserButton } from "@clerk/nextjs";
+// import { UserButton } from "@clerk/nextjs";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@radix-ui/react-popover";
 
 const navItems = [
   {
@@ -34,7 +38,7 @@ const navItems = [
 export default function DashboardNav({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col">
-      <header className="flex h-14 lg:h-[55px] items-center gap-4 border-b border-primary px-3">
+      <div className="flex h-14 lg:h-[55px] items-center gap-4 border-b border-primary px-3">
         <Dialog>
           <SheetTrigger className="min-[1024px]:hidden p-2 transition">
             <HiMenuAlt3 className="w-5 h-5" />
@@ -61,11 +65,10 @@ export default function DashboardNav({ children }: { children: ReactNode }) {
             </div>
           </SheetContent>
         </Dialog>
-        <div className="flex justify-center items-center gap-3 ml-auto mr-6">
+        {/* <div className="flex justify-center items-center gap-4 ml-auto pr-6">
           <UserButton />
-          <ThemeSwitcher />
-        </div>
-      </header>
+        </div> */}
+      </div>
       {children}
     </div>
   );
