@@ -45,6 +45,11 @@ const config = {
         soft: "0 15px 30px 0 rgba(0, 0, 0, 0.04)",
       },
       keyframes: {
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
         shimmer: {
           "0%, 90%, 100%": {
             "background-position": "calc(-100% - var(--shimmer-width)) 0",
@@ -82,6 +87,7 @@ const config = {
         },
       },
       animation: {
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
         in: "in .6s both",
         "in-reverse": "in-reverse .6s both",
         "accordion-down": "accordion-down 0.2s ease-out",

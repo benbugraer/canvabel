@@ -58,19 +58,17 @@ const Footer = () => {
             </div>
             <div className="mt-16 grid grid-cols-2 gap-14 md:grid-cols-2 lg:mt-0 xl:col-span-2">
               <div className="md:mt-0">
-                <h3 className="text-sm font-semibold leading-6">
-                  Connect with me
-                </h3>
+                <h3 className="text-sm uppercase leading-6">Connect with me</h3>
                 <div className="mt-6 flex gap-3">
                   {dockItems.map((item) => (
                     <div key={item.url}>
-                      <Link
+                      <a
                         target="_blank"
                         href={item.url}
                         className="leading-6 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-tertiary duration-500 hover:duration-500 hover:text-accent-foreground h-9 py-2 w-9"
                       >
                         {item.icon}
-                      </Link>
+                      </a>
                     </div>
                   ))}
                 </div>

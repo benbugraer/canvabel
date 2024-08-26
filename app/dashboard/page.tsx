@@ -9,9 +9,12 @@ export default async function Dashboard() {
         style={{ "--index": 5 } as CSSProperties}
       >
         <div className="flex flex-1 items-center justify-center rounded-lg border border-primary shadow-sm">
-          <div className="flex flex-col items-center text-center"></div>
+          <div
+            className="flex flex-col items-center text-center animate-in"
+            style={{ "--index": 6 } as CSSProperties}
+          ></div>
         </div>
-        <div className="animate-in" style={{ "--index": 6 } as CSSProperties}>
+        <div className="animate-in" style={{ "--index": 7 } as CSSProperties}>
           <DashboardBottomNav />
         </div>
       </div>

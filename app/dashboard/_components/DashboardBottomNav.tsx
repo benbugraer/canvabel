@@ -17,10 +17,10 @@ import {
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { GiArrowCursor } from "react-icons/gi";
-import { LiaRedoAltSolid } from "react-icons/lia";
 import { RiDragMove2Fill } from "react-icons/ri";
-import { PiTextTFill } from "react-icons/pi";
 import { FaImage } from "react-icons/fa6";
+import { PiTextTFill } from "react-icons/pi";
+import { LiaRedoAltSolid } from "react-icons/lia";
 import { TbSettings } from "react-icons/tb";
 import { BiExport } from "react-icons/bi";
 
@@ -33,71 +33,83 @@ const navigationItems = [
   { label: "Settings", icon: TbSettings },
 ];
 
+const NavigationItem = ({
+  label,
+  icon: Icon,
+}: {
+  label: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}) => (
+  <DockIcon key={label}>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div
+          className={cn(
+            buttonVariants({ variant: "ghost", size: "icon" }),
+            "size-12 rounded-full"
+          )}
+        >
+          <Icon className="size-4" />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{label}</p>
+      </TooltipContent>
+    </Tooltip>
+  </DockIcon>
+);
+
+const ExportButton = () => (
+  <DockIcon>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          className="rounded-md mr-3 px-3 text-center flex items-center justify-center gap-1"
+        >
+          <BiExport className="w-5 h-5" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-70 bg-tertiary p-5 rounded-md my-3 border border-primary">
+        <div className="grid gap-4">
+          <div className="space-y-2">
+            <h4 className="font-medium leading-none">Export</h4>
+            <p className="text-tertiary text-sm">
+              Export your canvas as an image.
+            </p>
+          </div>
+          <div className="flex justify-end">
+            <Button className="flex items-center justify-center gap-3 w-full">
+              <BiExport className="w-5 h-5" />
+              <h1 className="uppercase text-sm">Export</h1>
+            </Button>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  </DockIcon>
+);
+
 export function DashboardBottomNav() {
   return (
-    <div>
-      <TooltipProvider>
-        <Dock direction="middle">
-          {navigationItems.map((item) => (
-            <DockIcon key={item.label}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div
-                    className={cn(
-                      buttonVariants({ variant: "ghost", size: "icon" }),
-                      "size-12 rounded-full"
-                    )}
-                  >
-                    <item.icon className="size-4" />
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{item.label}</p>
-                </TooltipContent>
-              </Tooltip>
-            </DockIcon>
-          ))}
-          <Separator orientation="vertical" className="h-full" />
-          <DockIcon className="mr-3">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <ThemeSwitcher />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Theme</p>
-              </TooltipContent>
-            </Tooltip>
-          </DockIcon>
-          <DockIcon>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="rounded-md mr-3 px-3 text-center flex items-center justify-center gap-1"
-                >
-                  <BiExport className="w-5 h-5" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-70 bg-tertiary p-5 rounded-md my-3 border border-primary">
-                <div className="grid gap-4">
-                  <div className="space-y-2">
-                    <h4 className="font-medium leading-none">Export</h4>
-                    <p className="text-tertiary text-sm">
-                      Export your canvas as an image.
-                    </p>
-                  </div>
-                  <div className="flex justify-end">
-                    <Button className="flex items-center justify-center gap-3 w-full">
-                      <BiExport className="w-5 h-5" />
-                      <h1 className="uppercase text-sm">Export</h1>
-                    </Button>
-                  </div>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </DockIcon>
-        </Dock>
-      </TooltipProvider>
-    </div>
+    <TooltipProvider>
+      <Dock direction="middle">
+        {navigationItems.map((item) => (
+          <NavigationItem key={item.label} {...item} />
+        ))}
+        <Separator orientation="vertical" className="h-full" />
+        <DockIcon className="mr-3">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <ThemeSwitcher />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Theme</p>
+            </TooltipContent>
+          </Tooltip>
+        </DockIcon>
+        <ExportButton />
+      </Dock>
+    </TooltipProvider>
   );
 }

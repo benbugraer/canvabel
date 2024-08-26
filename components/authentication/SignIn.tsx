@@ -35,7 +35,7 @@ export default function SignIn() {
             description: "You have successfully logged in.",
             variant: "default",
           });
-          router.push("/"); // Ana sayfaya yönlendirme
+          router.push("/");
         }
       }
     } catch (err: any) {

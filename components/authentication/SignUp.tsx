@@ -121,22 +121,22 @@ export default function SignUp() {
   return (
     <>
       <div
-        className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-secondary bg-secondary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-sm h-full animate-in"
+        className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-secondary bg-secondary px-4 py-8 sm:p-8 md:p-10 lg:p-12 w-full max-w-md lg:max-w-lg mt-24 animate-in"
         style={{ "--index": 1 } as CSSProperties}
       >
-        <div className="w-full max-w-md space-y-8">
+        <div className="w-full space-y-6">
           <h2
-            className="mt-6 text-center text-3xl font-bold uppercase animate-in"
+            className="text-center text-2xl sm:text-3xl font-bold uppercase animate-in"
             style={{ "--index": 2 } as CSSProperties}
           >
             {showOTP ? "Verify Email" : "Create an account"}
           </h2>
           <div
-            className="bg-tertiary p-8 rounded-lg shadow-md animate-in"
+            className="bg-tertiary p-4 sm:p-8 rounded-lg shadow-md animate-in"
             style={{ "--index": 3 } as CSSProperties}
           >
             {!showOTP ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div className="space-y-4">
                   <div>
                     <label
@@ -209,7 +209,7 @@ export default function SignUp() {
                 </Button>
               </form>
             ) : (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <p className="text-sm text-secondary mx-auto flex items-center justify-center">
                   Please enter the verification code sent to your email.
                 </p>
@@ -227,7 +227,7 @@ export default function SignUp() {
                 </Button>
               </div>
             )}
-            <p className="mt-4 text-center text-sm text-secondary">
+            <p className="mt-4 sm:mt-6 text-center text-sm text-secondary">
               Already have an account?{" "}
               <Link
                 href="/signin"
@@ -239,6 +239,7 @@ export default function SignUp() {
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   );
 }
