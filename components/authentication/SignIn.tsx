@@ -50,7 +50,7 @@ export default function SignIn() {
 
   return (
     <div
-      className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-secondary bg-secondary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-sm h-full animate-in"
+      className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-primary bg-secondary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-sm h-full animate-in"
       style={{ "--index": 1 } as CSSProperties}
     >
       <h2

@@ -23,12 +23,14 @@ import { PiTextTFill } from "react-icons/pi";
 import { LiaRedoAltSolid } from "react-icons/lia";
 import { TbSettings } from "react-icons/tb";
 import { BiExport } from "react-icons/bi";
+import { IoIosColorPalette } from "react-icons/io";
 
 const navigationItems = [
   { label: "Cursor", icon: GiArrowCursor },
   { label: "Move", icon: RiDragMove2Fill },
   { label: "Image", icon: FaImage },
   { label: "Text", icon: PiTextTFill },
+  { label: "Color", icon: IoIosColorPalette },
   { label: "Redo", icon: LiaRedoAltSolid },
   { label: "Settings", icon: TbSettings },
 ];

@@ -7,7 +7,6 @@ import { useUser } from "@clerk/nextjs"; // Clerk hook
 import Button from "@/components/Button";
 import { CSSProperties } from "react";
 import { Cover } from "../ui/cover";
-import { BorderBeam } from "@/components/magicui/border-beam";
 
 export default function HeroSection() {
   const { user } = useUser();
@@ -39,8 +38,8 @@ export default function HeroSection() {
           </Link>
         ) : (
           <>
-            {/* <Button href="/signin">Sign In</Button>
-            <Button href="/signup">Sign Up</Button> */}
+            <Button href="/signin">Sign In</Button>
+            <Button href="/signup">Sign Up</Button>
           </>
         )}
       </div>
@@ -63,7 +62,6 @@ export default function HeroSection() {
             alt="Hero Image"
             className="hidden dark:block w-[1400px] rounded-lg border border-secondary object-contain shadow-lg"
           />
-          <BorderBeam size={500} duration={12} delay={5} />
         </div>
       </div>
     </div>
