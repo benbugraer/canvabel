@@ -14,27 +14,8 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { FaImage } from "react-icons/fa6";
 import { PiTextTFill } from "react-icons/pi";
 import { MdSettings } from "react-icons/md";
-// import { UserButton } from "@clerk/nextjs";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@radix-ui/react-popover";
+import { UserButton } from "@clerk/nextjs";
 
-const navItems = [
-  {
-    label: "Image",
-    icon: FaImage,
-  },
-  {
-    label: "Text",
-    icon: PiTextTFill,
-  },
-  {
-    label: "Settings",
-    icon: MdSettings,
-  },
-];
 export default function DashboardNav({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col">
@@ -51,23 +32,11 @@ export default function DashboardNav({ children }: { children: ReactNode }) {
                 </SheetTitle>
               </Link>
             </SheetHeader>
-            <div className="flex flex-col space-y-3 mt-4">
-              {navItems.map((item) => (
-                <DialogClose asChild key={item.label}>
-                  <div>
-                    <Button variant="outline" className="w-full">
-                      <item.icon className="mr-2 h-4 w-4" />
-                      {item.label}
-                    </Button>
-                  </div>
-                </DialogClose>
-              ))}
-            </div>
           </SheetContent>
         </Dialog>
-        {/* <div className="flex justify-center items-center gap-4 ml-auto pr-6">
+        <div className="flex justify-center items-center gap-4 ml-auto pr-6">
           <UserButton />
-        </div> */}
+        </div>
       </div>
       {children}
     </div>

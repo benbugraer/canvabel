@@ -1,4 +1,3 @@
-import { DashboardBottomNav } from "@/app/dashboard/_components/DashboardBottomNav";
 import { CSSProperties } from "react";
 
 export default async function Dashboard() {
@@ -14,9 +13,10 @@ export default async function Dashboard() {
             style={{ "--index": 6 } as CSSProperties}
           ></div>
         </div>
-        <div className="animate-in" style={{ "--index": 7 } as CSSProperties}>
-          <DashboardBottomNav />
-        </div>
+        <div
+          className="animate-in"
+          style={{ "--index": 7 } as CSSProperties}
+        ></div>
       </div>
     </div>
   );
