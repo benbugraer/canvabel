@@ -1,209 +1,251 @@
 "use client";
-
-import { CSSProperties, useState } from "react";
-import { useSignUp } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import * as Clerk from "@clerk/elements/common";
+import * as SignUp from "@clerk/elements/sign-up";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import { CSSProperties } from "react";
+import { ImSpinner } from "react-icons/im";
 
-export default function SignUp() {
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    acceptTerms: false,
-  });
-  const [showOTP, setShowOTP] = useState(false);
-  const [otp, setOTP] = useState("");
-  const { isLoaded, signUp, setActive } = useSignUp();
-  const router = useRouter();
-  const { toast } = useToast();
-
-  if (!isLoaded) return null;
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setCredentials({
-      ...credentials,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
-
-  const handleCheckboxChange = (checked: boolean) => {
-    setCredentials((prev) => ({ ...prev, acceptTerms: checked }));
-  };
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const { email, password, confirmPassword, acceptTerms } = credentials;
-
-    if (password !== confirmPassword) {
-      toast({
-        title: "Error",
-        description: "Passwords do not match.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (!acceptTerms) {
-      toast({
-        title: "Error",
-        description: "You must accept the terms and conditions.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      if (signUp) {
-        await signUp.create({ emailAddress: email, password });
-        await signUp.prepareEmailAddressVerification({
-          strategy: "email_code",
-        });
-        setShowOTP(true);
-      }
-    } catch (err: any) {
-      console.error("Error:", err.errors[0].message);
-      toast({
-        title: "Sign Up Failed",
-        description:
-          err.errors[0].message || "An error occurred during sign up.",
-        variant: "destructive",
-      });
-    }
-  }
-
-  async function handleVerifyOTP() {
-    try {
-      const completeSignUp = await signUp?.attemptEmailAddressVerification({
-        code: otp,
-      });
-      if (completeSignUp?.status === "complete") {
-        if (setActive) {
-          await setActive({ session: completeSignUp.createdSessionId });
-        }
-        toast({
-          title: "Sign Up Successful",
-          description: "Your account has been created successfully.",
-          variant: "default",
-        });
-        router.push("/signin");
-      } else {
-        toast({
-          title: "Verification Failed",
-          description: "The verification code is incorrect. Please try again.",
-          variant: "destructive",
-        });
-      }
-    } catch (err: any) {
-      console.error("Error:", err.errors[0].message);
-      toast({
-        title: "Verification Error",
-        description:
-          err.errors[0].message || "An error occurred during verification.",
-        variant: "destructive",
-      });
-    }
-  }
-
+export default function SignUpPage() {
   return (
-    <div
-      className="relative flex flex-col mx-auto items-center justify-center overflow-hidden rounded-lg border border-primary bg-secondary px-4 py-12 sm:p-8 md:p-10 lg:p-12 lg:w-1/2 mt-24 w-full h-full animate-in"
-      style={{ "--index": 1 } as CSSProperties}
-    >
-      <h2
-        className="text-center text-3xl font-bold uppercase mb-8 sm:mb-10 md:mb-12 animate-in"
-        style={{ "--index": 2 } as CSSProperties}
-      >
-        {showOTP ? "Verify Email" : "Create an account"}
-      </h2>
-      <div
-        className="w-full max-w-md space-y-6 rounded-lg bg-tertiary p-6 sm:p-8 md:p-10 shadow-md animate-in"
-        style={{ "--index": 3 } as CSSProperties}
-      >
-        {!showOTP ? (
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-            {["email", "password", "confirmPassword"].map((field) => (
-              <div key={field}>
-                <h1 className="text-sm mb-1 ml-1 text-primary">
-                  {field
-                    .split(/(?=[A-Z])/)
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(" ")}
-                </h1>
-                <Input
-                  type={
-                    field.includes("password") ||
-                    field.includes("confirmPassword")
-                      ? "password"
-                      : "text"
-                  }
-                  name={field}
-                  placeholder={`Enter your ${field
-                    .split(/(?=[A-Z])/)
-                    .join(" ")
-                    .toLowerCase()}`}
-                  value={credentials[
-                    field as keyof typeof credentials
-                  ].toString()}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            ))}
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="acceptTerms"
-                checked={credentials.acceptTerms}
-                onCheckedChange={handleCheckboxChange}
-              />
-              <label
-                htmlFor="acceptTerms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Accept terms and conditions
-              </label>
-            </div>
-            <Button type="submit" className="w-full" onClick={handleSubmit}>
-              Create account
-            </Button>
-          </form>
-        ) : (
-          <div className="space-y-4 sm:space-y-6">
-            <p className="text-sm text-secondary mx-auto flex items-center justify-center">
-              Please enter the verification code sent to your email.
-            </p>
-            <InputOTP value={otp} onChange={setOTP} maxLength={6}>
-              <InputOTPGroup className="flex items-center justify-center mx-auto">
-                {Array.from({ length: 6 }).map((_, index) => (
-                  <InputOTPSlot key={index} index={index} />
-                ))}
-              </InputOTPGroup>
-            </InputOTP>
-            <Button onClick={handleVerifyOTP} className="w-full">
-              Verify
-            </Button>
-          </div>
-        )}
-        <p className="mt-4 sm:mt-6 text-center text-sm text-secondary">
-          Already have an account?{" "}
-          <Link
-            href="/signin"
-            className="font-medium text-link hover:opacity-70 transition duration-200 ease-linear"
-          >
-            Sign in
-          </Link>
-        </p>
-      </div>
+    <div className="grid w-full grow items-center px-4 sm:justify-center my-auto mt-44 lg:mt-52">
+      <SignUp.Root>
+        <Clerk.Loading>
+          {(isGlobalLoading) => (
+            <>
+              <SignUp.Step name="start">
+                <Card
+                  className="w-full sm:w-96 animate-in"
+                  style={{ "--index": 0 } as CSSProperties}
+                >
+                  <CardHeader>
+                    <CardTitle
+                      className="text-center mb-4 animate-in"
+                      style={{ "--index": 1 } as CSSProperties}
+                    >
+                      Create your account for{" "}
+                      <span className="font-black">CanvasBEL</span>
+                    </CardTitle>
+                    <CardDescription
+                      className="text-center animate-in"
+                      style={{ "--index": 2 } as CSSProperties}
+                    >
+                      Welcome! Please fill in the details to get started.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="grid gap-y-4">
+                    <Clerk.Field name="emailAddress" className="space-y-2">
+                      <Clerk.Label
+                        asChild
+                        className="animate-in"
+                        style={{ "--index": 3 } as CSSProperties}
+                      >
+                        <Label>Email address</Label>
+                      </Clerk.Label>
+                      <Clerk.Input
+                        type="email"
+                        required
+                        asChild
+                        className="animate-in"
+                        style={{ "--index": 4 } as CSSProperties}
+                      >
+                        <Input />
+                      </Clerk.Input>
+                      <Clerk.FieldError className="block text-sm text-destructive" />
+                    </Clerk.Field>
+                    <Clerk.Field name="password" className="space-y-2">
+                      <Clerk.Label
+                        asChild
+                        className="animate-in"
+                        style={{ "--index": 5 } as CSSProperties}
+                      >
+                        <Label>Password</Label>
+                      </Clerk.Label>
+                      <Clerk.Input
+                        type="password"
+                        required
+                        asChild
+                        className="animate-in"
+                        style={{ "--index": 6 } as CSSProperties}
+                      >
+                        <Input />
+                      </Clerk.Input>
+                      <Clerk.FieldError className="block text-sm text-destructive" />
+                    </Clerk.Field>
+                  </CardContent>
+                  <CardFooter>
+                    <div className="grid w-full gap-y-4">
+                      <SignUp.Captcha className="empty:hidden" />
+                      <SignUp.Action submit asChild>
+                        <Button
+                          disabled={isGlobalLoading}
+                          className="animate-in"
+                          style={{ "--index": 7 } as CSSProperties}
+                        >
+                          <Clerk.Loading>
+                            {(isLoading) => {
+                              return isLoading ? (
+                                <ImSpinner className="size-4 animate-spin" />
+                              ) : (
+                                "Continue"
+                              );
+                            }}
+                          </Clerk.Loading>
+                        </Button>
+                      </SignUp.Action>
+                      <Button
+                        variant="link"
+                        size="sm"
+                        asChild
+                        className="animate-in"
+                        style={{ "--index": 8 } as CSSProperties}
+                      >
+                        <Link href="/signin">
+                          Already have an account? Sign in
+                        </Link>
+                      </Button>
+                    </div>
+                  </CardFooter>
+                </Card>
+              </SignUp.Step>
+
+              <SignUp.Step name="continue">
+                <Card className="w-full sm:w-96">
+                  <CardHeader>
+                    <CardTitle>Continue registration</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Clerk.Field name="username" className="space-y-2">
+                      <Clerk.Label>
+                        <Label>Username</Label>
+                      </Clerk.Label>
+                      <Clerk.Input type="text" required asChild>
+                        <Input />
+                      </Clerk.Input>
+                      <Clerk.FieldError className="block text-sm text-destructive" />
+                    </Clerk.Field>
+                  </CardContent>
+                  <CardFooter>
+                    <div className="grid w-full gap-y-4">
+                      <SignUp.Action submit asChild>
+                        <Button disabled={isGlobalLoading}>
+                          <Clerk.Loading>
+                            {(isLoading) => {
+                              return isLoading ? (
+                                <ImSpinner className="size-4 animate-spin" />
+                              ) : (
+                                "Continue"
+                              );
+                            }}
+                          </Clerk.Loading>
+                        </Button>
+                      </SignUp.Action>
+                    </div>
+                  </CardFooter>
+                </Card>
+              </SignUp.Step>
+
+              <SignUp.Step name="verifications">
+                <SignUp.Strategy name="email_code">
+                  <Card className="w-full sm:w-96">
+                    <CardHeader>
+                      <CardTitle>Verify your email</CardTitle>
+                      <CardDescription>
+                        Use the verification link sent to your email address
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid gap-y-4">
+                      <div className="grid items-center justify-center gap-y-2">
+                        <Clerk.Field name="code" className="space-y-2">
+                          <Clerk.Label className="sr-only">
+                            Email address
+                          </Clerk.Label>
+                          <div className="flex justify-center text-center">
+                            <Clerk.Input
+                              type="otp"
+                              className="flex justify-center has-[:disabled]:opacity-50"
+                              autoSubmit
+                              render={({ value, status }) => {
+                                return (
+                                  <div
+                                    data-status={status}
+                                    className={cn(
+                                      "relative flex size-10 items-center justify-center border-y border-r border-input text-sm transition-all first:rounded-l-xl first:border-l last:rounded-r-xl",
+                                      {
+                                        "z-10 ring-2 ring-black dark:ring-white ring-offset-background":
+                                          status === "cursor" ||
+                                          status === "selected",
+                                      }
+                                    )}
+                                  >
+                                    {value}
+                                    {status === "cursor" && (
+                                      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                                        <div className="animate-caret-blink h-4 w-px bg-foreground duration-1000" />
+                                      </div>
+                                    )}
+                                  </div>
+                                );
+                              }}
+                            />
+                          </div>
+                          <Clerk.FieldError className="block text-center text-sm text-destructive" />
+                        </Clerk.Field>
+                        <SignUp.Action
+                          asChild
+                          resend
+                          className="text-muted-foreground"
+                          fallback={({ resendableAfter }) => (
+                            <Button variant="link" size="sm" disabled>
+                              Didn&apos;t receive a code? Resend (
+                              <span className="tabular-nums">
+                                {resendableAfter}
+                              </span>
+                              )
+                            </Button>
+                          )}
+                        >
+                          <Button type="button" variant="link" size="sm">
+                            Didn&apos;t receive a code? Resend
+                          </Button>
+                        </SignUp.Action>
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <div className="grid w-full gap-y-4">
+                        <SignUp.Action submit asChild>
+                          <Button disabled={isGlobalLoading}>
+                            <Clerk.Loading>
+                              {(isLoading) => {
+                                return isLoading ? (
+                                  <ImSpinner className="size-4 animate-spin" />
+                                ) : (
+                                  "Continue"
+                                );
+                              }}
+                            </Clerk.Loading>
+                          </Button>
+                        </SignUp.Action>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </SignUp.Strategy>
+              </SignUp.Step>
+            </>
+          )}
+        </Clerk.Loading>
+      </SignUp.Root>
     </div>
   );
 }

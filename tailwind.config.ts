@@ -45,6 +45,10 @@ const config = {
         soft: "0 15px 30px 0 rgba(0, 0, 0, 0.04)",
       },
       keyframes: {
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
         "border-beam": {
           "100%": {
             "offset-distance": "100%",
@@ -87,6 +91,7 @@ const config = {
         },
       },
       animation: {
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
         in: "in .6s both",
         "in-reverse": "in-reverse .6s both",
