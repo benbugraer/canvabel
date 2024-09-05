@@ -30,9 +30,9 @@ export default function HeroSection() {
         style={{ "--index": 3 } as CSSProperties}
       >
         {user ? (
-          <Link href="/dashboard">
+          <Link href="/canvas">
             <button className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-12 py-3 bg-[#0070f3] rounded-lg text-white font-semibold text-sm transition duration-200 ease-linear flex items-center justify-center gap-1">
-              <p>Dashboard</p>
+              <p>Canvas</p>
               <ArrowRightIcon className="ml-1 size-4 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
             </button>
           </Link>

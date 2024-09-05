@@ -193,6 +193,11 @@ export default function SignInPage() {
                             Use another method
                           </Button>
                         </SignIn.Action>
+                        <SignIn.Action navigate="forgot-password" asChild>
+                          <Button type="button" size="sm" variant="link">
+                            <Link href="/forgotpassword">Forgot password?</Link>
+                          </Button>
+                        </SignIn.Action>
                       </div>
                     </CardFooter>
                   </Card>
