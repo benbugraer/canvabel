@@ -1,7 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
   TooltipContent,
@@ -9,21 +8,20 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { GiArrowCursor } from "react-icons/gi";
 import { RiDragMove2Fill } from "react-icons/ri";
 import { FaImage } from "react-icons/fa6";
 import { PiTextTFill } from "react-icons/pi";
-import { LiaRedoAltSolid } from "react-icons/lia";
 import { TbSettings } from "react-icons/tb";
-import ExportButton from "@/app/canvas/_components/ExportButton";
+import { IoColorPalette } from "react-icons/io5";
 
 const navigationItems = [
   { label: "Cursor", icon: GiArrowCursor },
   { label: "Move", icon: RiDragMove2Fill },
   { label: "Image", icon: FaImage },
   { label: "Text", icon: PiTextTFill },
-  { label: "Redo", icon: LiaRedoAltSolid },
+  { label: "Color", icon: IoColorPalette },
+  // { label: "Redo", icon: LiaRedoAltSolid },
   { label: "Settings", icon: TbSettings },
 ];
 

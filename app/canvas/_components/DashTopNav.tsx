@@ -3,6 +3,7 @@
 import { CSSProperties, ReactNode } from "react";
 import { UserButton } from "@clerk/nextjs";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import ExportButton from "./ExportButton";
 
 export default function DashTopNav({ children }: { children: ReactNode }) {
   return (
@@ -12,6 +13,8 @@ export default function DashTopNav({ children }: { children: ReactNode }) {
           className="flex justify-center items-center gap-2 ml-auto mr-6 animate-in"
           style={{ "--index": 2 } as CSSProperties}
         >
+          <ExportButton />  
+          <ThemeSwitcher />
           <UserButton />
         </div>
       </div>

@@ -10,7 +10,7 @@ export default function DashSidebar() {
         <div className="flex h-[55px] items-center justify-between border-b border-primary px-3 w-full">
           <Link
             href="/"
-            className="ml-6 relative text-lg font-normal tracking-tighter mr-8 flex items-center space-x-2 animate-in"
+            className="ml-6 relative text-lg font-normal tracking-tighter mr-8 flex items-center animate-in"
             style={{ "--index": 1 } as CSSProperties}
           >
             <span className="text-primary">
@@ -18,7 +18,7 @@ export default function DashSidebar() {
             </span>
           </Link>
         </div>
-        <div className="animate-in" style={{ "--index": 3 } as CSSProperties}>
+        <div className="animate-in my-auto" style={{ "--index": 3 } as CSSProperties}>
           <DashSidebarNav />
         </div>
       </div>
