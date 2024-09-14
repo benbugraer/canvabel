@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { ImSpinner } from "react-icons/im";
+import { CSSProperties } from "react";
 
 interface LoadingButtonProps {
   isLoading: boolean;
@@ -39,12 +40,33 @@ const SignInCard: React.FC<{
   description: React.ReactNode;
   children: React.ReactNode;
 }> = ({ title, description, children }) => (
-  <Card className="w-full sm:w-96">
-    <CardHeader>
-      <CardTitle>{title}</CardTitle>
-      <CardDescription>{description}</CardDescription>
+  <Card
+    className="w-full sm:w-96 animate-in"
+    style={{ "--index": 0 } as CSSProperties}
+  >
+    <CardHeader
+      className="animate-in"
+      style={{ "--index": 1 } as CSSProperties}
+    >
+      <CardTitle
+        className="animate-in"
+        style={{ "--index": 2 } as CSSProperties}
+      >
+        {title}
+      </CardTitle>
+      <CardDescription
+        className="animate-in"
+        style={{ "--index": 3 } as CSSProperties}
+      >
+        {description}
+      </CardDescription>
     </CardHeader>
-    <CardContent className="grid gap-y-4">{children}</CardContent>
+    <CardContent
+      className="grid gap-y-4 animate-in"
+      style={{ "--index": 4 } as CSSProperties}
+    >
+      {children}
+    </CardContent>
   </Card>
 );
 

@@ -17,6 +17,59 @@ import { cn } from "@/lib/utils";
 import { CSSProperties } from "react";
 import { ImSpinner } from "react-icons/im";
 
+interface LoadingButtonProps {
+  isLoading: boolean;
+  children: React.ReactNode;
+}
+
+const LoadingButton: React.FC<LoadingButtonProps> = ({
+  isLoading,
+  children,
+}) => (
+  <Clerk.Loading>
+    {(loading) => (
+      <Button disabled={isLoading}>
+        {loading ? <ImSpinner className="size-4 animate-spin" /> : children}
+      </Button>
+    )}
+  </Clerk.Loading>
+);
+
+const SignUpCard: React.FC<{
+  title: React.ReactNode;
+  description: React.ReactNode;
+  children: React.ReactNode;
+}> = ({ title, description, children }) => (
+  <Card
+    className="w-full sm:w-96 animate-in"
+    style={{ "--index": 0 } as CSSProperties}
+  >
+    <CardHeader
+      className="animate-in"
+      style={{ "--index": 1 } as CSSProperties}
+    >
+      <CardTitle
+        className="animate-in"
+        style={{ "--index": 2 } as CSSProperties}
+      >
+        {title}
+      </CardTitle>
+      <CardDescription
+        className="animate-in"
+        style={{ "--index": 3 } as CSSProperties}
+      >
+        {description}
+      </CardDescription>
+    </CardHeader>
+    <CardContent
+      className="grid gap-y-4 animate-in"
+      style={{ "--index": 4 } as CSSProperties}
+    >
+      {children}
+    </CardContent>
+  </Card>
+);
+
 export default function SignUpPage() {
   return (
     <div className="grid w-full grow items-center px-4 sm:justify-center my-auto mt-44 lg:mt-52">
@@ -25,99 +78,49 @@ export default function SignUpPage() {
           {(isGlobalLoading) => (
             <>
               <SignUp.Step name="start">
-                <Card
-                  className="w-full sm:w-96 animate-in"
-                  style={{ "--index": 0 } as CSSProperties}
-                >
-                  <CardHeader>
-                    <CardTitle
-                      className="text-center mb-4 animate-in"
-                      style={{ "--index": 1 } as CSSProperties}
-                    >
+                <SignUpCard
+                  title={
+                    <>
                       Create your account for{" "}
                       <span className="font-black">CanvasBEL</span>
-                    </CardTitle>
-                    <CardDescription
-                      className="text-center animate-in"
-                      style={{ "--index": 2 } as CSSProperties}
-                    >
-                      Welcome! Please fill in the details to get started.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="grid gap-y-4">
-                    <Clerk.Field name="emailAddress" className="space-y-2">
-                      <Clerk.Label
-                        asChild
-                        className="animate-in"
-                        style={{ "--index": 3 } as CSSProperties}
-                      >
-                        <Label>Email address</Label>
-                      </Clerk.Label>
-                      <Clerk.Input
-                        type="email"
-                        required
-                        asChild
-                        className="animate-in"
-                        style={{ "--index": 4 } as CSSProperties}
-                      >
-                        <Input />
-                      </Clerk.Input>
-                      <Clerk.FieldError className="block text-sm text-destructive" />
-                    </Clerk.Field>
-                    <Clerk.Field name="password" className="space-y-2">
-                      <Clerk.Label
-                        asChild
-                        className="animate-in"
-                        style={{ "--index": 5 } as CSSProperties}
-                      >
-                        <Label>Password</Label>
-                      </Clerk.Label>
-                      <Clerk.Input
-                        type="password"
-                        required
-                        asChild
-                        className="animate-in"
-                        style={{ "--index": 6 } as CSSProperties}
-                      >
-                        <Input />
-                      </Clerk.Input>
-                      <Clerk.FieldError className="block text-sm text-destructive" />
-                    </Clerk.Field>
-                  </CardContent>
+                    </>
+                  }
+                  description="Welcome! Please fill in the details to get started."
+                >
+                  <Clerk.Field name="emailAddress" className="space-y-2">
+                    <Clerk.Label asChild>
+                      <Label>Email address</Label>
+                    </Clerk.Label>
+                    <Clerk.Input type="email" required asChild>
+                      <Input />
+                    </Clerk.Input>
+                    <Clerk.FieldError className="block text-sm text-destructive" />
+                  </Clerk.Field>
+                  <Clerk.Field name="password" className="space-y-2">
+                    <Clerk.Label asChild>
+                      <Label>Password</Label>
+                    </Clerk.Label>
+                    <Clerk.Input type="password" required asChild>
+                      <Input />
+                    </Clerk.Input>
+                    <Clerk.FieldError className="block text-sm text-destructive" />
+                  </Clerk.Field>
                   <CardFooter>
                     <div className="grid w-full gap-y-4">
                       <SignUp.Captcha className="empty:hidden" />
                       <SignUp.Action submit asChild>
-                        <Button
-                          disabled={isGlobalLoading}
-                          className="animate-in"
-                          style={{ "--index": 7 } as CSSProperties}
-                        >
-                          <Clerk.Loading>
-                            {(isLoading) => {
-                              return isLoading ? (
-                                <ImSpinner className="size-4 animate-spin" />
-                              ) : (
-                                "Continue"
-                              );
-                            }}
-                          </Clerk.Loading>
-                        </Button>
+                        <LoadingButton isLoading={isGlobalLoading}>
+                          Continue
+                        </LoadingButton>
                       </SignUp.Action>
-                      <Button
-                        variant="link"
-                        size="sm"
-                        asChild
-                        className="animate-in"
-                        style={{ "--index": 8 } as CSSProperties}
-                      >
+                      <Button variant="link" size="sm" asChild>
                         <Link href="/signin">
                           Already have an account? Sign in
                         </Link>
                       </Button>
                     </div>
                   </CardFooter>
-                </Card>
+                </SignUpCard>
               </SignUp.Step>
 
               <SignUp.Step name="continue">
